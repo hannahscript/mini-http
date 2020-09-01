@@ -1,5 +1,7 @@
 package com.github.hannahscript.minihttp;
 
+import com.github.hannahscript.minihttp.protocols.ResponseProtocol;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,14 +11,16 @@ import java.net.Socket;
 
 public class HttpServer {
     private final int port;
+    private final ResponseProtocol protocol;
 
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private BufferedReader clientReader;
     private PrintWriter clientWriter;
 
-    public HttpServer(int port) {
+    public HttpServer(int port, ResponseProtocol protocol) {
         this.port = port;
+        this.protocol = protocol;
     }
 
     public void start() throws IOException {
@@ -31,7 +35,8 @@ public class HttpServer {
         String clientMessage;
         do {
             clientMessage = this.clientReader.readLine();
-            clientWriter.println("You sent '" + clientMessage + "'");
+            String response = this.protocol.respond(clientMessage);
+            this.clientWriter.println(response);
         } while(!clientMessage.equals(""));
     }
 
