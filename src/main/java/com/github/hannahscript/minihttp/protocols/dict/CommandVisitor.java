@@ -8,11 +8,11 @@ import com.github.hannahscript.minihttp.protocols.dict.responses.AnswerResponse;
 import com.github.hannahscript.minihttp.protocols.dict.responses.ErrorResponse;
 import com.github.hannahscript.minihttp.protocols.dict.responses.Response;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CommandVisitor {
-    private Map<String, String> definitions = new HashMap<>();
+    private final Map<String, String> definitions = new ConcurrentHashMap<>();
 
     public Response visit(Command host) {
         return host.accept(this);

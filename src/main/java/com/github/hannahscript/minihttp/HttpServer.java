@@ -2,10 +2,7 @@ package com.github.hannahscript.minihttp;
 
 import com.github.hannahscript.minihttp.protocols.ResponseProtocol;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -14,9 +11,7 @@ public class HttpServer {
     private final ResponseProtocol protocol;
 
     private ServerSocket serverSocket;
-    private Socket clientSocket;
-    private BufferedReader clientReader;
-    private PrintWriter clientWriter;
+    private boolean running = false;
 
     public HttpServer(int port, ResponseProtocol protocol) {
         this.port = port;
@@ -24,26 +19,27 @@ public class HttpServer {
     }
 
     public void start() throws IOException {
+        this.running = true;
         this.serverSocket = new ServerSocket(this.port);
 
-        this.clientSocket = this.serverSocket.accept();
-        this.clientReader = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
-        this.clientWriter = new PrintWriter(this.clientSocket.getOutputStream(), true);
-
-
-        this.clientWriter.println("Connected to mini-http");
-        String clientMessage;
-        do {
-            clientMessage = this.clientReader.readLine();
-            String response = this.protocol.respond(clientMessage);
-            this.clientWriter.println(response);
-        } while(!clientMessage.equals(""));
+        while (this.running) {
+            Socket clientSocket = null;
+            try {
+                clientSocket = this.serverSocket.accept();
+            } catch (IOException ex) {
+                // Rethrow if still running, otherwise assume socket has been closed by stop method and just quit
+                if (this.running) {
+                    throw ex;
+                }
+                break;
+            }
+            // TODO limit thread capacity somehow (threadpool with 0 queue size? + somehow gracefully turn away clients when at max. cap)
+            new Thread(new ConnectionRunnable(clientSocket, this.protocol)).start();
+        }
     }
 
     public void stop() throws IOException {
-        this.clientReader.close();
-        this.clientWriter.close();
-        this.clientSocket.close();
+        this.running = false;
         this.serverSocket.close();
     }
 }
