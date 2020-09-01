@@ -1,2 +1,2 @@
 # mini-http
-TPH Project #1
+Playing around with https://theprogrammershangout.com/resources/projects/http-project-guide/intro.md
