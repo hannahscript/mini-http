@@ -5,8 +5,11 @@ import com.github.hannahscript.minihttp.protocols.dict.commands.Command;
 import com.github.hannahscript.minihttp.protocols.dict.responses.ErrorResponse;
 import com.github.hannahscript.minihttp.protocols.dict.responses.Response;
 
+/**
+ * Defines the dictionary protocol
+ */
 public class DictProtocol implements ResponseProtocol {
-    private final ProtocolParser protocolParser = new ProtocolParser();
+    private final DictProtocolParser protocolParser = new DictProtocolParser();
     private final CommandVisitor commandVisitor = new CommandVisitor();
 
     public String respond(String text) {

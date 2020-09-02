@@ -8,6 +8,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+/**
+ * Runs for each client connected to the server
+ */
 public class ConnectionRunnable implements Runnable {
     private final Socket clientSocket;
     private final BufferedReader clientReader;
@@ -16,6 +19,12 @@ public class ConnectionRunnable implements Runnable {
 
     private boolean running = false;
 
+    /**
+     * Creates a new runnable, accepting the client socket and a protocol to run for the client
+     * @param clientSocket
+     * @param protocol This protocol will be run for the client
+     * @throws IOException
+     */
     public ConnectionRunnable(Socket clientSocket, ResponseProtocol protocol) throws IOException {
         this.clientSocket = clientSocket;
         this.protocol = protocol;

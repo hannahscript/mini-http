@@ -3,6 +3,9 @@ package com.github.hannahscript.minihttp.protocols.dict.commands;
 import com.github.hannahscript.minihttp.protocols.dict.CommandVisitor;
 import com.github.hannahscript.minihttp.protocols.dict.responses.Response;
 
+/**
+ * The set command defines a new word
+ */
 public class SetCommand implements Command {
     private final String word;
     private final String definition;

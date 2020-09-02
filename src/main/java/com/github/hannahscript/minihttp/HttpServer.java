@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * A server that runs a simple response protocol on a port, accepting mulitple connections.
+ */
 public class HttpServer {
     private final int port;
     private final ResponseProtocol protocol;
@@ -13,11 +16,20 @@ public class HttpServer {
     private ServerSocket serverSocket;
     private boolean running = false;
 
+    /**
+     * Creates a new server
+     * @param port Port that the server will accept connections on
+     * @param protocol Protocol that the server will run
+     */
     public HttpServer(int port, ResponseProtocol protocol) {
         this.port = port;
         this.protocol = protocol;
     }
 
+    /**
+     * Starts the server
+     * @throws IOException
+     */
     public void start() throws IOException {
         this.running = true;
         this.serverSocket = new ServerSocket(this.port);
@@ -38,6 +50,10 @@ public class HttpServer {
         }
     }
 
+    /**
+     * Stops the server
+     * @throws IOException
+     */
     public void stop() throws IOException {
         this.running = false;
         this.serverSocket.close();

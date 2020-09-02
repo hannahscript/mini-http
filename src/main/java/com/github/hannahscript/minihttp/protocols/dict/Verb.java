@@ -3,6 +3,9 @@ package com.github.hannahscript.minihttp.protocols.dict;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Defines possible dictionary protocol command verbs
+ */
 public enum Verb {
     GET, SET;
 

@@ -4,7 +4,10 @@ import com.github.hannahscript.minihttp.protocols.dict.commands.Command;
 import com.github.hannahscript.minihttp.protocols.dict.commands.GetCommand;
 import com.github.hannahscript.minihttp.protocols.dict.commands.SetCommand;
 
-public class ProtocolParser {
+/**
+ * Parses incoming commands for the dictionary protocol
+ */
+public class DictProtocolParser {
     public Command parse(String text) {
         String[] parts = text.split(" ", 2);
 

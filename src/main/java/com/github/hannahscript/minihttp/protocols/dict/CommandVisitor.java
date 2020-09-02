@@ -2,7 +2,7 @@ package com.github.hannahscript.minihttp.protocols.dict;
 
 import com.github.hannahscript.minihttp.protocols.dict.commands.Command;
 import com.github.hannahscript.minihttp.protocols.dict.commands.GetCommand;
-import com.github.hannahscript.minihttp.protocols.dict.commands.OkResponse;
+import com.github.hannahscript.minihttp.protocols.dict.responses.OkResponse;
 import com.github.hannahscript.minihttp.protocols.dict.commands.SetCommand;
 import com.github.hannahscript.minihttp.protocols.dict.responses.AnswerResponse;
 import com.github.hannahscript.minihttp.protocols.dict.responses.ErrorResponse;
